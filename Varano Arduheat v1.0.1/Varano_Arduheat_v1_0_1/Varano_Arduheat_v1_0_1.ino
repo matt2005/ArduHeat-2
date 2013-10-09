@@ -262,19 +262,19 @@ void loop() {
   
   
   internet = digitalRead(1);
-  if(internet == HIGH && protect > 16301){          //if the internet switch is set on internet and initial time has passed
+  if(internet == HIGH && protect > 17301){          //if the internet switch is set on internet and initial time has passed
     desiredT = webTemp;        //use webserver reading
     intervallo = 120000;        //keep website search interval to 3 min.
     lcd.setCursor(15,0);
     lcd.print("i");
-  }else if(internet == LOW && protect > 16301){        //else, don't
+  }else if(internet == LOW && protect > 17301){        //else, don't
     intervallo = 900000;      //set website search interval to 15 min.
     lcd.setCursor(15,0);
     lcd.print("l");
-  }else if(protect <= 16000){
+  }else if(protect <= 17000){
     lcd.setCursor(10,0);
     lcd.print("load..");
-  }else if(protect <= 16301 && protect > 16000){
+  }else if(protect <= 17301 && protect > 17000){
     lcd.setCursor(10,0);
     lcd.print("      ");
   }
@@ -355,26 +355,26 @@ void loop() {
   
   
   // printing temperatures
-  if(protect > 16301){
+  if(protect > 17301){
     lcd.setCursor(10,0);//set cursor to after the "desired temp" text
     lcd.print(desiredT,1);//lcd print desiredT in right place
     lcd.print(" ");
   }
-  if (protect > 17301){
+  if (protect > 18301){
    lcd.setCursor(7,1);//set cursor to after the "current T" text
    lcd.print(TEMPr,1);//lcd print current temperature
    }
-   else if (protect >= 17000 && protect <= 17300){
+   else if (protect >= 18000 && protect <= 18300){
      lcd.setCursor(7,1);
      lcd.print("         ");
    }
-   else if (protect < 17000){
+   else if (protect < 18000){
      lcd.setCursor(7,1);
      lcd.print("loading..");
    }
 
   // comparing temperatures
-  if(protect > 17301){
+  if(protect > 18301){
     if(TEMPr - desiredT <= -1){       //desired - room > 0.5   =   if desired is more than 0.5 higher, then ON
       digitalWrite(A5, HIGH);
       lcd.setCursor(13,1);
@@ -388,7 +388,7 @@ void loop() {
     }
   }
     
-  if(protect < 18000 && protect > 17301){       // if desired lower than room then OFF
+  if(protect < 19000 && protect > 18301){       // if desired lower than room then OFF
     int TempDifference = (TEMPr - desiredT);
     if(TempDifference == 0){
       digitalWrite(A5, LOW);
@@ -430,20 +430,20 @@ int connectToServer() {
     lastAttemptTime = millis();
   } 
   else {
-    lcd.print("no");
+   // lcd.print("no");
     // if you couldn't make a connection:
  //   Serial.println("connection failed");
  //   Serial.println("disconnecting.");
-        lcd.clear();
+    //    lcd.clear();
    /*     lcd.print("error 406");
         lcd.setCursor(0,1);
         lcd.print
         lcd.print("Connection Fail"); */
         client.stop();
-        lcd.print("no");
+     //   lcd.print("no");
         delay(1000);
-        lcd.print("no");
-        delay(2000);
+    //    lcd.print("no");
+    //    delay(2000);
     //    for(;;);
     //    webTemp = 20;
     /*    lcd.clear();
